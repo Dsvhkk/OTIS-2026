@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 tau = []
 y = []
 
-with open("simulation_results.csv", "r", encoding="utf-8") as file:
+with open("build/simulation_results.csv", "r", encoding="utf-8") as file:
     reader = csv.DictReader(file, delimiter=";")
 
     for row in reader:

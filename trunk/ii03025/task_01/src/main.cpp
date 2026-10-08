@@ -37,7 +37,7 @@ void runSimulation(Model& model, std::ofstream& csvFile) {
 
     std::cout << "tau\t| U\t| Y\n";
 
-    for (double tau = 0; tau < n; ++tau) {
+    for (int tau = 0; tau < n; ++tau) {
         double u = 0.0;
 
         if (signalChoice == 1) {
