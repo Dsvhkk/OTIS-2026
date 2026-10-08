@@ -4,7 +4,7 @@ mkdir build
 cd build
 
 # Запускаем CMake и компиляцию
-cmake ..
+cmake ../src
 cmake --build .
 
 # Запускаем нашу программу

@@ -8,10 +8,11 @@ private:
     double b;
     double delta;
 
+    double y = 0.0;
+
 public:
-    Model23(double a, double b, double delta);
+    Model23(double coeffA, double coeffB, double deadZone);
 
     double nextStep(double u) override;
-
     std::string getName() const override;
 };

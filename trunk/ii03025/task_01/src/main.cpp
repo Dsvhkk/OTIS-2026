@@ -1,41 +1,63 @@
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <cmath>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 #include "model.h"
 #include "model19.h"
 #include "model23.h"
 #include "model37.h"
 
+void runSimulation(Model& model, std::ofstream& csvFile) {
+    int signalChoice = 0;
+    double amplitude = 0.0;
+    int n = 0;
 
-void runSimulation(Model& model, int n, const std::string& signalType, double amplitude, std::ofstream& csvFile) {
-    for (int tau = 0; tau < n; ++tau) {
+    std::cout << "Сигнал (1 - ступенчатый, 2 - импульсный, 3 - гармонический): ";
+    std::cin >> signalChoice;
+    std::cout << "Амплитуда A = ";
+    std::cin >> amplitude;
+    std::cout << "Количество шагов n = ";
+    std::cin >> n;
+
+    std::string signalType;
+    if (signalChoice == 1) {
+        signalType = "Step";
+    }
+    else if (signalChoice == 2) {
+        signalType = "Pulse";
+    }
+    else if (signalChoice == 3) {
+        signalType = "Harmonic";
+    }
+    else {
+        std::cout << "Неверный выбор сигнала.\n";
+        return;
+    }
+
+    std::cout << "tau\t| U\t| Y\n";
+
+    for (double tau = 0; tau < n; ++tau) {
         double u = 0.0;
 
-        if (signalType == "Step") {
+        if (signalChoice == 1) {
             u = amplitude;
         }
-        else if (signalType == "Pulse") {
-            if (tau == 0) {
-                u = amplitude;
-            }
-            else {
-                u = 0.0;
-            }
+        else if (signalChoice == 2 && tau == 0) {
+            u = amplitude;
         }
-        else if (signalType == "Harmonic") {
+        else if (signalChoice == 3) {
             u = amplitude * std::sin(tau);
         }
 
         double y = model.nextStep(u);
 
         std::cout << tau << "\t| " << u << "\t| " << y << "\n";
-
         csvFile << model.getName() << ";" << signalType << ";" << tau << ";" << u << ";" << y << "\n";
     }
-}
 
+    std::cout << "Результаты записаны в simulation_results.csv\n";
+}
 
 int main() {
     std::ofstream csvFile("simulation_results.csv");
@@ -47,268 +69,69 @@ int main() {
 
     csvFile << "Model;SignalType;Step;U;Y\n";
 
-
     while (true) {
+        int modelChoice = 0;
 
-        int modelChoice;
-
-        std::cout << "\n\n";
-        std::cout << "============================================\n";
-        std::cout << "     МОДЕЛИРОВАНИЕ УПРАВЛЯЕМОГО ОБЪЕКТА\n";
-        std::cout << "============================================\n";
-
-        std::cout << "Выберите модель:\n";
-        std::cout << "1 - Модель 1.9\n";
-        std::cout << "2 - Модель 2.3\n";
-        std::cout << "3 - Модель 3.7\n";
-        std::cout << "0 - Выход\n";
-
+        std::cout << "\nМодель: 1 - 1.9, 2 - 2.3, 3 - 3.7, 0 - выход\n";
         std::cout << "Ваш выбор: ";
         std::cin >> modelChoice;
 
-
-        if (modelChoice == 0) {
+        if (!std::cin || modelChoice == 0) {
             break;
         }
 
-
-        int signalChoice;
-        std::string signalType;
-
-        double amplitude;
-        int n;
-
-
         if (modelChoice == 1) {
-
-            double a1;
-            double a2;
-            double a3;
-            double b1;
-
-            std::cout << "\n============================================\n";
-            std::cout << "                 МОДЕЛЬ 1.9\n";
-            std::cout << "============================================\n";
-
-            std::cout << "Введите параметры модели:\n";
+            double a1 = 0.0;
+            double a2 = 0.0;
+            double a3 = 0.0;
+            double b1 = 0.0;
 
             std::cout << "a1 = ";
             std::cin >> a1;
-
             std::cout << "a2 = ";
             std::cin >> a2;
-
             std::cout << "a3 = ";
             std::cin >> a3;
-
             std::cout << "b1 = ";
             std::cin >> b1;
 
-
-            std::cout << "\nВыберите входной сигнал:\n";
-            std::cout << "1 - Ступенчатый\n";
-            std::cout << "2 - Импульсный\n";
-            std::cout << "3 - Гармонический\n";
-
-            std::cout << "Ваш выбор: ";
-            std::cin >> signalChoice;
-
-
-            if (signalChoice == 1) {
-                signalType = "Step";
-            }
-            else if (signalChoice == 2) {
-                signalType = "Pulse";
-            }
-            else if (signalChoice == 3) {
-                signalType = "Harmonic";
-            }
-            else {
-                std::cout << "Неверный выбор сигнала.\n";
-                continue;
-            }
-
-
-            std::cout << "\nАмплитуда сигнала A = ";
-            std::cin >> amplitude;
-
-            std::cout << "Количество шагов n = ";
-            std::cin >> n;
-
-
             Model19 model(a1, a2, a3, b1);
-
-
-            std::cout << "\n============================================\n";
-            std::cout << "Модель: " << model.getName() << "\n";
-            std::cout << "Сигнал: " << signalType << "\n";
-            std::cout << "Амплитуда: " << amplitude << "\n";
-            std::cout << "Количество шагов: " << n << "\n";
-            std::cout << "============================================\n";
-
-            std::cout << "tau\t| U\t| Y\n";
-            std::cout << "--------------------------------------------\n";
-
-            runSimulation(model, n, signalType, amplitude, csvFile);
+            runSimulation(model, csvFile);
         }
-
-
         else if (modelChoice == 2) {
-
-            double a;
-            double b;
-            double delta;
-
-            std::cout << "\n============================================\n";
-            std::cout << "                 МОДЕЛЬ 2.3\n";
-            std::cout << "============================================\n";
-
-            std::cout << "Введите параметры модели:\n";
+            double a = 0.0;
+            double b = 0.0;
+            double delta = 0.0;
 
             std::cout << "a = ";
             std::cin >> a;
-
             std::cout << "b = ";
             std::cin >> b;
-
             std::cout << "delta = ";
             std::cin >> delta;
 
-
-            std::cout << "\nВыберите входной сигнал:\n";
-            std::cout << "1 - Ступенчатый\n";
-            std::cout << "2 - Импульсный\n";
-            std::cout << "3 - Гармонический\n";
-
-            std::cout << "Ваш выбор: ";
-            std::cin >> signalChoice;
-
-
-            if (signalChoice == 1) {
-                signalType = "Step";
-            }
-            else if (signalChoice == 2) {
-                signalType = "Pulse";
-            }
-            else if (signalChoice == 3) {
-                signalType = "Harmonic";
-            }
-            else {
-                std::cout << "Неверный выбор сигнала.\n";
-                continue;
-            }
-
-
-            std::cout << "\nАмплитуда сигнала A = ";
-            std::cin >> amplitude;
-
-            std::cout << "Количество шагов n = ";
-            std::cin >> n;
-
-
             Model23 model(a, b, delta);
-
-
-            std::cout << "\n============================================\n";
-            std::cout << "Модель: " << model.getName() << "\n";
-            std::cout << "Сигнал: " << signalType << "\n";
-            std::cout << "Амплитуда: " << amplitude << "\n";
-            std::cout << "Количество шагов: " << n << "\n";
-            std::cout << "============================================\n";
-
-            std::cout << "tau\t| U\t| Y\n";
-            std::cout << "--------------------------------------------\n";
-
-            runSimulation(model, n, signalType, amplitude, csvFile);
+            runSimulation(model, csvFile);
         }
-
-
         else if (modelChoice == 3) {
-
-            double a;
-            double b;
-            double dt;
-
-            std::cout << "\n============================================\n";
-            std::cout << "                 МОДЕЛЬ 3.7\n";
-            std::cout << "============================================\n";
-
-            std::cout << "Введите параметры модели:\n";
+            double a = 0.0;
+            double b = 0.0;
+            double dt = 0.0;
 
             std::cout << "a = ";
             std::cin >> a;
-
             std::cout << "b = ";
             std::cin >> b;
-
             std::cout << "dt = ";
             std::cin >> dt;
 
-
-            std::cout << "\nВыберите входной сигнал:\n";
-            std::cout << "1 - Ступенчатый\n";
-            std::cout << "2 - Импульсный\n";
-            std::cout << "3 - Гармонический\n";
-
-            std::cout << "Ваш выбор: ";
-            std::cin >> signalChoice;
-
-
-            if (signalChoice == 1) {
-                signalType = "Step";
-            }
-            else if (signalChoice == 2) {
-                signalType = "Pulse";
-            }
-            else if (signalChoice == 3) {
-                signalType = "Harmonic";
-            }
-            else {
-                std::cout << "Неверный выбор сигнала.\n";
-                continue;
-            }
-
-
-            std::cout << "\nАмплитуда сигнала A = ";
-            std::cin >> amplitude;
-
-            std::cout << "Количество шагов n = ";
-            std::cin >> n;
-
-
             Model37 model(a, b, dt);
-
-
-            std::cout << "\n============================================\n";
-            std::cout << "Модель: " << model.getName() << "\n";
-            std::cout << "Сигнал: " << signalType << "\n";
-            std::cout << "Амплитуда: " << amplitude << "\n";
-            std::cout << "Количество шагов: " << n << "\n";
-            std::cout << "============================================\n";
-
-            std::cout << "tau\t| U\t| Y\n";
-            std::cout << "--------------------------------------------\n";
-
-            runSimulation(model, n, signalType, amplitude, csvFile);
+            runSimulation(model, csvFile);
         }
-
-
         else {
-            std::cout << "\nНеверный выбор модели.\n";
-            continue;
+            std::cout << "Неверный выбор модели.\n";
         }
-
-
-        std::cout << "\n============================================\n";
-        std::cout << "Моделирование завершено.\n";
-        std::cout << "Результаты записаны в simulation_results.csv\n";
-        std::cout << "============================================\n";
     }
-
-
-    csvFile.close();
-
-    std::cout << "\nПрограмма завершена.\n";
 
     return 0;
 }

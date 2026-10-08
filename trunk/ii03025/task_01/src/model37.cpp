@@ -1,12 +1,9 @@
 #include "model37.h"
+
 #include <cmath>
 
-Model37::Model37(double A, double B, double DT) {
-    a = A;
-    b = B;
-    dt = DT;
-
-    y = 0.0;
+Model37::Model37(double coeffA, double coeffB, double timeStep)
+    : a(coeffA), b(coeffB), dt(timeStep) {
 }
 
 double Model37::nextStep(double u) {
