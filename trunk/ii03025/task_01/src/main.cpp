@@ -36,6 +36,19 @@ void runSimulation(Model& model, int n, const std::string& signalType, double am
     }
 }
 
+std::string getSignalType(int signalChoice) {
+    if (signalChoice == 1) {
+        return "Step";
+    }
+    else if (signalChoice == 2) {
+        return "Pulse";
+    }
+    else if (signalChoice == 3) {
+        return "Harmonic";
+    }
+
+    return "";
+}
 
 int main() {
     std::ofstream csvFile("simulation_results.csv");
