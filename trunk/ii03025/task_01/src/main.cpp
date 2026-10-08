@@ -113,21 +113,12 @@ int main() {
             std::cout << "Ваш выбор: ";
             std::cin >> signalChoice;
 
+            if (signalType.empty()) {
 
-            if (signalChoice == 1) {
-                signalType = "Step";
-            }
-            else if (signalChoice == 2) {
-                signalType = "Pulse";
-            }
-            else if (signalChoice == 3) {
-                signalType = "Harmonic";
-            }
-            else {
                 std::cout << "Неверный выбор сигнала.\n";
                 continue;
-            }
 
+            }   
 
             std::cout << "\nАмплитуда сигнала A = ";
             std::cin >> amplitude;
@@ -143,7 +134,7 @@ int main() {
             std::cout << "Модель: " << model.getName() << "\n";
             std::cout << "Сигнал: " << signalType << "\n";
             std::cout << "Амплитуда: " << amplitude << "\n";
-            std::cout << "Количество шагов: " << n << "\n";
+            std::cout << "Количество шагов задано пользователем.\n";
             std::cout << "============================================\n";
 
             std::cout << "tau\t| U\t| Y\n";
@@ -183,21 +174,12 @@ int main() {
             std::cout << "Ваш выбор: ";
             std::cin >> signalChoice;
 
+            if (signalType.empty()) {
 
-            if (signalChoice == 1) {
-                signalType = "Step";
-            }
-            else if (signalChoice == 2) {
-                signalType = "Pulse";
-            }
-            else if (signalChoice == 3) {
-                signalType = "Harmonic";
-            }
-            else {
                 std::cout << "Неверный выбор сигнала.\n";
                 continue;
-            }
 
+            }
 
             std::cout << "\nАмплитуда сигнала A = ";
             std::cin >> amplitude;
@@ -213,7 +195,7 @@ int main() {
             std::cout << "Модель: " << model.getName() << "\n";
             std::cout << "Сигнал: " << signalType << "\n";
             std::cout << "Амплитуда: " << amplitude << "\n";
-            std::cout << "Количество шагов: " << n << "\n";
+            std::cout << "Количество шагов задано пользователем.\n";
             std::cout << "============================================\n";
 
             std::cout << "tau\t| U\t| Y\n";
@@ -253,21 +235,12 @@ int main() {
             std::cout << "Ваш выбор: ";
             std::cin >> signalChoice;
 
+            if (signalType.empty()) {
 
-            if (signalChoice == 1) {
-                signalType = "Step";
-            }
-            else if (signalChoice == 2) {
-                signalType = "Pulse";
-            }
-            else if (signalChoice == 3) {
-                signalType = "Harmonic";
-            }
-            else {
                 std::cout << "Неверный выбор сигнала.\n";
                 continue;
-            }
 
+            }   
 
             std::cout << "\nАмплитуда сигнала A = ";
             std::cin >> amplitude;
@@ -283,7 +256,7 @@ int main() {
             std::cout << "Модель: " << model.getName() << "\n";
             std::cout << "Сигнал: " << signalType << "\n";
             std::cout << "Амплитуда: " << amplitude << "\n";
-            std::cout << "Количество шагов: " << n << "\n";
+            std::cout << "Количество шагов задано пользователем.\n";
             std::cout << "============================================\n";
 
             std::cout << "tau\t| U\t| Y\n";
