@@ -2,9 +2,9 @@
 #include <cmath>
 #include <functional>
 #include <memory>
-#include "model19.h"
-#include "model23.h"
-#include "model37.h"
+#include "../../task_01/src/model19.h"
+#include "../../task_01/src/model23.h"
+#include "../../task_01/src/model37.h"
 
 TEST(Model19, ManualSteps) {
     Model19 m(0.5, 0.2, 0.1, 1.0);
