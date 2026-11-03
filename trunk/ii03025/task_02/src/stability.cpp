@@ -14,7 +14,9 @@ bool isStable37(double a, double dt) {
 
 // Модель 1.9: z^3 - a1*z^2 - a2*z - a3 = 0, критерий Джури
 bool isStable19(double a1, double a2, double a3) {
-    double c2 = -a1, c1 = -a2, c0 = -a3;
+    double c2 = -a1;
+    double c1 = -a2;
+    double c0 = -a3;
 
     double p1  = 1 + c2 + c1 + c0;     // P(1)
     double pm1 = -1 + c2 - c1 + c0;    // P(-1)
