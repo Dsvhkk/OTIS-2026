@@ -29,7 +29,10 @@ int main() {
         }
 
         if (modelChoice == 1) {
-            double a1, a2, a3, b1;
+            double a1;
+            double a2;
+            double a3;
+            double b1;
 
             std::cout << "a1 = ";
             std::cin >> a1;
@@ -49,7 +52,9 @@ int main() {
             runSimulation(model, csvFile);
         }
         else if (modelChoice == 2) {
-            double a, b, delta;
+            double a;
+            double b;
+            double delta;
 
             std::cout << "a = ";
             std::cin >> a;
@@ -67,7 +72,9 @@ int main() {
             runSimulation(model, csvFile);
         }
         else if (modelChoice == 3) {
-            double a, b, dt;
+            double a;
+            double b;
+            double dt;
 
             std::cout << "a = ";
             std::cin >> a;
