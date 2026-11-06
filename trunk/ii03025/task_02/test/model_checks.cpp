@@ -57,7 +57,7 @@ struct Case {
 class Convergence : public ::testing::TestWithParam<Case> {};
 
 TEST_P(Convergence, ReachesSteadyState) {
-    auto m = GetParam().make();
+    std::unique_ptr<Model> m = GetParam().make();
     double y = 0.0;
     for (int i = 0; i < 2000; ++i) y = m->nextStep(1.0);
     EXPECT_NEAR(y, GetParam().expected, 1e-6);
