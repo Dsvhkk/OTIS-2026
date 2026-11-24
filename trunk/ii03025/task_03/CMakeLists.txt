@@ -2,19 +2,16 @@ cmake_minimum_required(VERSION 3.14)
 
 project(OTIS_Lab3_PID)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(TASK01_SRC "../../task_01/src")
 
-add_subdirectory(src)
-
-# Основная программа
 add_executable(OTIS_Lab3
     src/main.cpp
+    src/pid.cpp
+    "${TASK01_SRC}/model19.cpp"
+    "${TASK01_SRC}/model23.cpp"
+    "${TASK01_SRC}/model37.cpp"
 )
 
-target_link_libraries(OTIS_Lab3 PRIVATE pid_core)
-
-# Google Test
 include(FetchContent)
 
 if(POLICY CMP0135)
@@ -30,14 +27,15 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-# Тесты
 add_executable(tests
     test/test_pid.cpp
+    src/pid.cpp
 )
+
+target_include_directories(tests PRIVATE src)
 
 target_link_libraries(tests
     PRIVATE
-    pid_core
     GTest::gtest_main
 )
 
