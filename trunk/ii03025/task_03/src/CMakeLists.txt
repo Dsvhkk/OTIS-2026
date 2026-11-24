@@ -1,4 +1,4 @@
-set(TASK01_SRC "путь_к_task_01/src")
+set(TASK01_SRC "../../task_01/src")
 
 add_executable(OTIS_Lab3
     main.cpp
