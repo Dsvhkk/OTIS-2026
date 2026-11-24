@@ -28,7 +28,10 @@ int main() {
 
     if (modelChoice == 1) {
 
-        double a1, a2, a3, b1;
+        double a1;
+        double a2;
+        double a3;
+        double b1;
 
         std::cout << "\nВведите коэффициенты a1, a2, a3, b1: ";
         std::cin >> a1 >> a2 >> a3 >> b1;
@@ -38,7 +41,9 @@ int main() {
     }
     else if (modelChoice == 2) {
 
-        double a, b, delta;
+        double a;
+        double b;
+        double delta;
 
         std::cout << "\nВведите коэффициенты a, b и зону нечувствительности: ";
         std::cin >> a >> b >> delta;
@@ -48,7 +53,8 @@ int main() {
     }
     else if (modelChoice == 3) {
 
-        double a, b;
+        double a;
+        double b;
 
         std::cout << "\nВведите коэффициенты a и b: ";
         std::cin >> a >> b;
@@ -76,7 +82,9 @@ int main() {
     std::cout << "\nВведите заданную температуру: ";
     std::cin >> setpoint;
 
-    double kp, ki, kd;
+    double kp;
+    double ki;
+    double kd;
 
     std::cout << "\nВведите коэффициенты ПИД-регулятора:\n";
 
@@ -89,7 +97,8 @@ int main() {
     std::cout << "Kd: ";
     std::cin >> kd;
 
-    double uMin, uMax;
+    double uMin;
+    double uMax;
 
     std::cout << "\nВведите ограничения управляющего сигнала:\n";
 
